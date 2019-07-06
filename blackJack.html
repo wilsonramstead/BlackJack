@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Black Jack</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="blackJack.js"></script>
+</head>
+<body>
+    <div class="body">
+        <div class="wrapper">
+            <div class="header">
+                <h1>Black Jack</h1>
+            </div>
+            <div class="dealerHand"></div>
+            <div class="total"><h1>Total: 0</h1></div>
+            <div class="playerHand"></div>
+            <div class="dealCard">
+                <button id="dealButton"><h1>DEAL</h1></button>
+                <script>
+                    $(document).ready(function() {
+                        var deck = new Deck();
+                        deck.shuffleDeck();
+                        var player = new Player("Player1");
+                        var z = 0;
+                        // $(".total").html("Total: " + 0);
+                        $("#dealButton").click(function() {
+                           
+                            if(player.hand.length <= 1)
+                            {
+                                player.takeCard();
+                                player.takeCard();
+                                for(var c in player.hand)
+                                {
+                                    $(".playerHand").append("<img class='card" + c + "' alt='picture' src='cards-png/" + player.hand[c].suit + player.hand[c].int + ".png'>");
+                                    z++;
+                                }
+                                $(".total").replaceWith("<div class='total'><h1>Total: " + player.total() + "</h1></div>");
+                            }
+                            else {
+                                player.takeCard();
+                                $(".playerHand").append("<img class='card" + z + "' alt='picture' src='cards-png/" + player.hand[z].suit + player.hand[z].int + ".png'>");
+                                z++;
+                                $(".total").replaceWith("<div class='total'><h1>Total: " + player.total() + "</h1></div>");
+                            }
+                            if(player.total() > 21)
+                            {
+                                $(".playerHand img").css("opacity", .3);
+                                $(".playerHand").append("<h1 class='resetH1'>Game Over!</h3><br><button class='reset' id='reset' class='btn btn-danger'>Play Again</button>")
+                            }
+                        })
+
+                    })
+                    
+                </script>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </div>
+   
+    
+</body>
+</html>

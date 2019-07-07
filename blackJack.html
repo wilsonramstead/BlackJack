@@ -39,14 +39,29 @@
                                 for(var c in player.hand)
                                 {
                                     $(".playerHand").append("<img class='card" + c + "' alt='playerCard' src='cards-png/" + player.hand[c].suit + player.hand[c].int + ".png'>");
+                                    if(player.hand[c]['int'] == 1 && player.total() <= 21){
+                                        player.hand[c]['int'] = 11;
+                                        dealer.hand[c]['int'] = 11;
+                                    }
+                                    if(player.hand[c]['int'] == 1 && player.total() > 21){
+                                        player.hand[c]['int'] = 1;
+                                    }
+                                    console.log("!!!!!!player hand: ", player.hand[c]['int']);
                                     z++;
-                                }
-                                // $(".dealerHand").append("<img class='dealerCard" + 0 + "' alt='dealerCard' src='cards-png/" + dealer.hand[0].suit + dealer.hand[0].int + ".png'>");  
+                                }  
                                 $(".dealerHand").append("<img class='dealerCard0' alt='dealerCard' src='cards-png/b1fv.png'>");                                
                                 $(".dealerHand").append("<img class='dealerCard1' alt='dealerCard' src='cards-png/" + dealer.hand[1].suit + dealer.hand[1].int + ".png'>");
                                 $(".total").replaceWith("<div class='total'><h1>Total: " + player.total() + "</h1></div>");
                             }
                             else {
+                                for(var c in player.hand){
+                                    if(player.hand[c]['int'] == 1 && player.total() <= 21){
+                                        player.hand[c]['int'] = 11;
+                                    }
+                                    if(player.hand[c]['int'] == 1 && player.total() > 21){
+                                        player.hand[c]['int'] = 1;
+                                    }
+                                }
                                 player.takeCard();
                                 $(".playerHand").append("<img class='card" + z + "' alt='picture' src='cards-png/" + player.hand[z].suit + player.hand[z].int + ".png'>");
                                 z++;
@@ -55,26 +70,49 @@
                             if(player.hand.length > 1 && player.total() < 21)
                             {
                                 $(".footer").replaceWith("<button id='stay'>Stay</button>");
+                                
+                                $("#stay").click(function() {
+                                    $(".dealerHand").replaceWith("<div class='dealerHand'></div>");
+                                    $(".dealerHand").append("<img class='dealerCard0' alt='dealerCard' src='cards-png/" + dealer.hand[0].suit + dealer.hand[0].int + ".png'>");
+                                    $(".dealerHand").append("<img class='dealerCard1' alt='dealerCard' src='cards-png/" + dealer.hand[1].suit + dealer.hand[1].int + ".png'>");
+                                    $("#stay").replaceWith("<div class='footer'></div>");
+                                    $("#dealButton").replaceWith("<div class='dealCard'></div>");
+                                    if(dealer.total() >= player.total())
+                                    {
+                                        $(".playerHand img").css("opacity", .3);
+                                        $(".playerHand").append("<h1 class='resetH1'>Dealer Wins</h3><br><button class='reset' id='reset' class='btn'>Play Again</button>");
+                                        $("#reset").click(function() {
+                                            document.location.reload();
+                                        })
+                                    }
+                                    else {
+                                        $(".playerHand img").css("opacity", .3);
+                                        $(".playerHand").append("<h1 class='resetH1'>You Win!</h3><br><button class='reset' id='reset' class='btn'>Play Again</button>");
+                                        $("#reset").click(function() {
+                                            document.location.reload();
+                                        })
+                                    }
+                                });
+
+                            }
+                            if(player.total() == 21)
+                            {
+                                $("#stay").replaceWith("<div class='footer'></div>");
+                                $("#dealButton").replaceWith("<div class='dealCard'></div>");
+                                $(".playerHand img").css("opacity", .3);
+                                $(".playerHand").append("<h1 class='resetH1'>You Win!</h3><br><button class='reset' id='reset' class='btn'>Play Again</button>");
                             }
                             if(player.total() > 21)
                             {
+                                $("#stay").replaceWith("<div class='footer'></div>");
+                                $("#dealButton").replaceWith("<div class='dealCard'></div>");
                                 $(".playerHand img").css("opacity", .3);
                                 $(".playerHand").append("<h1 class='resetH1'>Game Over!</h3><br><button class='reset' id='reset' class='btn'>Play Again</button>");
                                 $(".dealerHand").replaceWith("<div class='dealerHand'></div>");
                                 $(".dealerHand").append("<img class='dealerCard0' alt='dealerCard' src='cards-png/" + dealer.hand[0].suit + dealer.hand[0].int + ".png'>");
                                 $(".dealerHand").append("<img class='dealerCard1' alt='dealerCard' src='cards-png/" + dealer.hand[1].suit + dealer.hand[1].int + ".png'>");
                                 $("#reset").click(function() {
-                                    var deck = new Deck();
-                                    deck.shuffleDeck();
-                                    for(var c in player.hand){
-                                        player.discard(c);
-                                    }
-                                    player.total();
-                                    var dealer = new Player("Dealer");
-                                    var z = 0;
-                                    $(".playerHand").replaceWith("<div class='playerHand'></div>");
-                                    $(".dealerHand").replaceWith("<div class='dealerHand'></div>");
-                                    $(".total").replaceWith("<div class='total'><h1>Total: 0</h1></div>");
+                                    document.location.reload();
                                 })
                             }
                         })

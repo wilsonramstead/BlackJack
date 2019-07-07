@@ -4,7 +4,7 @@
 }
 .wrapper {
     background-image: linear-gradient(#00200e, #017137);
-    min-height: 782px;
+    min-height: 828px;
     border-radius: 0px 0px 200px 200px;
 }
 .header {
@@ -52,7 +52,6 @@
 .card0 {
     height: 300px;
     width: 175px;
-    background-color: yellow;
     display: inline-block;
     position: relative;
     top: 20px;
@@ -61,7 +60,6 @@
 .card1 {
     height: 300px;
     width: 175px;
-    background-color: yellow;
     display: inline-block;
     transform: rotate(5deg);
     position: relative;
@@ -71,7 +69,6 @@
 .card2 {
     height: 300px;
     width: 175px;
-    background-color: yellow;
     display: inline-block;
     transform: rotate(10deg);
     position: relative;
@@ -81,7 +78,6 @@
 .card3 {
     height: 300px;
     width: 175px;
-    background-color: yellow;
     display: inline-block;
     transform: rotate(13deg);
     position: relative;
@@ -91,12 +87,20 @@
 .card4 {
     height: 300px;
     width: 24%;
-    background-color: yellow;
     display: inline-block;
     transform: rotate(13deg);
     position: relative;
     top: -244px;
     left: 544px;
+}
+.card5 {
+    height: 300px;
+    width: 24%;
+    display: inline-block;
+    transform: rotate(14deg);
+    position: relative;
+    top: -227px;
+    left: 439px;
 }
 .reset {
     display: inline-block;
@@ -138,7 +142,7 @@
     height: 75px;
     width: 20%;
     margin-left: 41%;
-    background-image: linear-gradient(#ebdada, #ad0000);
+    background-image: linear-gradient(#ebdada, #470b00);
     font-size: 50px;
     color: white;
 }

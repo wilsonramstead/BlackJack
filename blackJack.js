@@ -59,13 +59,7 @@ class Player extends Deck {
         this.hand.push(this.dealCard());
     }
     discard(int) {
-        for(var c in this.hand){
-            if(hand[c].int == int)
-            {
-                this.hand.slice(hand[c]);
-            }
-            
-        }
+        this.hand.slice(this.hand[int]);
     }
     total() {
         var total = 0;
@@ -83,13 +77,13 @@ class Player extends Deck {
 }
 
 
-const test = new Deck();
-const player1 = new Player("Jim");
-player1.takeCard();
-player1.takeCard();
-player1.total();
-test.reset()
-console.log("Test: ", test);
+// const test = new Deck();
+// const player1 = new Player("Jim");
+// player1.takeCard();
+// player1.takeCard();
+// player1.total();
+// test.reset()
+// console.log("Test: ", test);
 // console.log("!!!!!: ", player1.hand[0].int);
 // console.log("Player hand: ", player1.hand);
 

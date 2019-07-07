@@ -17,7 +17,7 @@
                 <h1>Black Jack</h1>
             </div>
             <div class="dealerHand"></div>
-            <div class="total"><h1>Total: 0</h1></div>
+            <div class="total"></div>
             <div class="playerHand"></div>
             <div class="dealCard">
                 <button id="dealButton"><h1>DEAL</h1></button>
@@ -26,19 +26,24 @@
                         var deck = new Deck();
                         deck.shuffleDeck();
                         var player = new Player("Player1");
+                        var dealer = new Player("Dealer");
                         var z = 0;
-                        // $(".total").html("Total: " + 0);
                         $("#dealButton").click(function() {
                            
                             if(player.hand.length <= 1)
                             {
                                 player.takeCard();
                                 player.takeCard();
+                                dealer.takeCard();
+                                dealer.takeCard();
                                 for(var c in player.hand)
                                 {
-                                    $(".playerHand").append("<img class='card" + c + "' alt='picture' src='cards-png/" + player.hand[c].suit + player.hand[c].int + ".png'>");
+                                    $(".playerHand").append("<img class='card" + c + "' alt='playerCard' src='cards-png/" + player.hand[c].suit + player.hand[c].int + ".png'>");
                                     z++;
                                 }
+                                // $(".dealerHand").append("<img class='dealerCard" + 0 + "' alt='dealerCard' src='cards-png/" + dealer.hand[0].suit + dealer.hand[0].int + ".png'>");  
+                                $(".dealerHand").append("<img class='dealerCard0' alt='dealerCard' src='cards-png/b1fv.png'>");                                
+                                $(".dealerHand").append("<img class='dealerCard1' alt='dealerCard' src='cards-png/" + dealer.hand[1].suit + dealer.hand[1].int + ".png'>");
                                 $(".total").replaceWith("<div class='total'><h1>Total: " + player.total() + "</h1></div>");
                             }
                             else {
@@ -47,15 +52,33 @@
                                 z++;
                                 $(".total").replaceWith("<div class='total'><h1>Total: " + player.total() + "</h1></div>");
                             }
+                            if(player.hand.length > 1 && player.total() < 21)
+                            {
+                                $(".footer").replaceWith("<button id='stay'>Stay</button>");
+                            }
                             if(player.total() > 21)
                             {
                                 $(".playerHand img").css("opacity", .3);
-                                $(".playerHand").append("<h1 class='resetH1'>Game Over!</h3><br><button class='reset' id='reset' class='btn btn-danger'>Play Again</button>")
+                                $(".playerHand").append("<h1 class='resetH1'>Game Over!</h3><br><button class='reset' id='reset' class='btn'>Play Again</button>");
+                                $(".dealerHand").replaceWith("<div class='dealerHand'></div>");
+                                $(".dealerHand").append("<img class='dealerCard0' alt='dealerCard' src='cards-png/" + dealer.hand[0].suit + dealer.hand[0].int + ".png'>");
+                                $(".dealerHand").append("<img class='dealerCard1' alt='dealerCard' src='cards-png/" + dealer.hand[1].suit + dealer.hand[1].int + ".png'>");
+                                $("#reset").click(function() {
+                                    var deck = new Deck();
+                                    deck.shuffleDeck();
+                                    for(var c in player.hand){
+                                        player.discard(c);
+                                    }
+                                    player.total();
+                                    var dealer = new Player("Dealer");
+                                    var z = 0;
+                                    $(".playerHand").replaceWith("<div class='playerHand'></div>");
+                                    $(".dealerHand").replaceWith("<div class='dealerHand'></div>");
+                                    $(".total").replaceWith("<div class='total'><h1>Total: 0</h1></div>");
+                                })
                             }
                         })
-
                     })
-                    
                 </script>
             </div>
             <div class="footer"></div>
